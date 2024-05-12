@@ -3,27 +3,28 @@ public class CheckParanthesis {
         String openbraces = "[{(";
         String closebraces = "]})";
         Stacks stk = new Stacks(exp.length());
-        for(int i=0;i<exp.length();i++){
+        for (int i = 0; i < exp.length(); i++) {
             char bracket = exp.charAt(i);
-            if(bracket == '[' || bracket=='{' || bracket=='('){
+            if (bracket == '[' || bracket == '{' || bracket == '(') {
                 stk.push(bracket);
-            }else{
-                int indx=closebraces.indexOf(bracket);
+            } else {
+                int indx = closebraces.indexOf(bracket);
                 int crossopenbracket = openbraces.charAt(indx);
-                if (stk.isEmpty()){
+                if (stk.isEmpty()) {
                     return false;
                 }
-                if(crossopenbracket != stk.pop()){
+                if (crossopenbracket != stk.pop()) {
                     return false;
                 }
             }
         }
-        if (stk.isEmpty()){
+        if (stk.isEmpty()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
+
     public static void main(String[] args) {
         CheckParanthesis check = new CheckParanthesis();
         System.out.println(check.isBalanced("{]}"));
