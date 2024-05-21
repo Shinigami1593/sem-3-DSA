@@ -41,6 +41,7 @@ public class AdjancencyMatrix {
         return adjNodes;
         
     }
+    //print adjacency matrix
 
     public static void main(String[] args) {
         AdjancencyMatrix adj = new AdjancencyMatrix(5);

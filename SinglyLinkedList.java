@@ -13,7 +13,7 @@ public class SinglyLinkedList {
     Node head = null;
     Node tail = null;
 
-    void addNote(int data) {
+    void addNode(int data) {
         size++;
         Node newnode = new Node(data);
         if (head == null || tail == null) {
@@ -33,6 +33,9 @@ public class SinglyLinkedList {
         Node newnode = new Node(data);
         if(head == null || tail == null){
             head = tail = newnode;
+        }else{
+            newnode.next = head;
+            head = newnode;
         }
     }
     public void printList(){
