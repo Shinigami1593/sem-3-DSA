@@ -50,6 +50,7 @@ public class AdjacencyList {
         adj.addEdge(3, 5);
         adj.addEdge(4, 5);
         adj.printGraph();
-        adj.getAdjnodes(5);
+
+        System.out.println(adj.getAdjnodes(5));
     }
 }
