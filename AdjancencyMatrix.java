@@ -41,7 +41,39 @@ public class AdjancencyMatrix {
         return adjNodes;
         
     }
-    //print adjacency matrix
+    //BFS
+    void BFS(int s){
+        boolean visited[] = new boolean[v];
+        Queues q = new Queues(v);
+        q.enQueue(s);
+        visited[s] = true;
+        while(!q.isEmpty()){
+            int u = q.dequeue();
+            System.out.println(u);
+            for(int j = 0; j<v;j++ ){
+                if(matrix[u][j] != 0 ){
+                    if(!visited[j]){
+                        q.enQueue(j);
+                        visited[j] = true;
+
+                    }
+                }
+            }
+        }
+    }
+    void depthFirstSearch(int s){
+        boolean visited[] = new boolean[v];
+        dfs(s,visited);
+    }
+    void dfs(int s,boolean visited[]){
+        visited[s] = true;
+        System.out.println(s);
+        for(int j = 0; j<v;j++){
+            if(matrix[s][j] != 0){
+                dfs(j, visited);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         AdjancencyMatrix adj = new AdjancencyMatrix(5);
@@ -56,3 +88,6 @@ public class AdjancencyMatrix {
     }
 
 }
+
+
+//write itterative implementation of DFSalgorithm
