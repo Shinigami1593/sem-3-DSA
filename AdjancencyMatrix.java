@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import java.util.*;
 
 public class AdjancencyMatrix {
     int v;
@@ -74,6 +76,42 @@ public class AdjancencyMatrix {
                 dfs(j, visited);
             }
         }
+    }
+
+    int topologicalSorting(){
+        int indegree[] = new int[v];
+        for(int i = 0; i<v;i++){
+            for(int j = 0; j<v;j++){
+                if(matrix[i][j]!=0){
+                    indegree[j]++;
+                }
+            }
+
+        }
+        Queue<Integer> q = new LinkedList<>();
+        for(int i = 0;i<v;i++){
+            if(indegree[i]==0){
+                q.add(i);
+            }
+        }
+        int cnt = 0;
+        while(!q.isEmpty()){
+            cnt++;
+            int u = q.poll();
+            System.out.println(q);
+            for(int j = 0; j<v;j++){
+                if(matrix[u][j]!=0){
+                    indegree[j]--;
+                    if(indegree[j]==0){
+                        q.add(j);
+                    }
+                }
+            }
+        }
+        if(cnt!=v){
+            return 1;
+        }
+        return -1;
     }
 
     //SHORTEST PATH FINDING BFS
