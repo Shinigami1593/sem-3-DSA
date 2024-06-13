@@ -1,23 +1,97 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
 import java.util.*;
 
 public class AdjancencyMatrix {
     int v;
     int[][] matrix;
+    Edge edges[];
+
+    public static class Edge implements Comparable<Edge>{
+        int u,v,w;
+        public Edge(int u, int v,int w){
+            this.u=u;
+            this.v =v;
+            this.w =w;
+        }
+
+        @Override
+        public int compareTo(Edge o){
+            return this.w-o.w;
+        }
+    }
 
     // initialize matrix
     AdjancencyMatrix(int v) {
         this.v = v;
         matrix = new int[v][v];
+        edges = new Edge[v*(v-1)/2];
     }
+
+    //edge counter:
+    int edgeCount = -1;
 
     // add edgegs
     public void addEdge(int source, int destination, int weight) {
         matrix[source][destination] = 1;
         matrix[destination][source] = 1;
+    }
+
+    void populateEdgesList(){
+        for(int i =0;i<v;i++){
+            for(int j=0;j<v;j++){
+                if(matrix[i][j]!=0){
+                    edges[++edgeCount] = new Edge(i, j, matrix[i][j]);
+                }
+            }
+        }
+    }
+    //::KRUSHKALL'S ALGORITHM::
+    void kruskal(){
+        int mst[][] = new int[v][v];
+        int parent[] = new int[v];
+        int size[] = new int[v];
+        for(int i= 0;i<v;i++){
+            parent[i] = -1;
+        }
+        int edgeCounter = 0;
+        int edgeTaken = 1;
+        Arrays.sort(edges);
+        while(edgeTaken<v){ //if edgeTaken was equal to 0 then in condition it should be (edgeTaken<v-1)
+            Edge edge = edges[edgeCounter];
+            edgeCounter++;
+            if(isCycleDetected(edge.u,edge.v,parent)){
+                continue;
+            }
+            union(find(edge.u,parent), find(edge.v, parent), size, parent);
+            mst[edge.u][edge.v] = edge.w;
+            mst[edge.v][edge.u] = edge.w;
+            edgeTaken++;
+        }
+    }
+
+    //TO DETECT IF THE CYCLE EXISTS IN A GRAPH OR NOT::
+    boolean isCycleDetected(int u,int v,int[] parent){
+        return find(u,parent) == find(v,parent);
+    }
+
+    int find(int x, int parent[]){
+        if(parent[x]==-1){
+            return x;
+        }
+        return parent[x] = find(parent[x],parent);
+    }
+    void union(int uabsroot, int vabsroot, int[] size,int[] parent){
+        if(size[uabsroot]>size[vabsroot]){
+            parent[vabsroot] = uabsroot;
+            
+        }
+        else if(size[vabsroot]>size[uabsroot]){
+            parent[uabsroot] = vabsroot;
+
+        }else{
+            parent[vabsroot] = uabsroot;
+            size[uabsroot]++;
+        }
+
     }
 
     // print graph

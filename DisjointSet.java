@@ -42,7 +42,6 @@ public class DisjointSet {
             return x;
         }
         return parent[x] = find(parent[x]);
-
     }
 
     public static void main(String[] args) {
