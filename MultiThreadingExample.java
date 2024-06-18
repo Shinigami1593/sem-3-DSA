@@ -24,7 +24,7 @@ class yourThread extends Thread{
     }
     @Override
     public void run(){
-        obj.downloadImage(5, "dog");
+        obj.downloadImage(5, "cat");
     }
 }
 public class MultiThreadingExample{
@@ -40,6 +40,7 @@ public class MultiThreadingExample{
         catch(Exception ee){
             ee.printStackTrace();
         } 
+        t2.start();
     }  
 }
 
